@@ -1,168 +1,159 @@
 ---
-title: API Reference
+title: Merus API Reference
 
 language_tabs:
   - shell
-  - ruby
-  - python
+  - javascript
 
 toc_footers:
   - <a href='#'>Sign Up for a Developer Key</a>
   - <a href='http://github.com/tripit/slate'>Documentation Powered by Slate</a>
-
-includes:
-  - errors
 
 search: true
 ---
 
 # Introduction
 
-Welcome to the Kittn API! You can use our API to access Kittn API endpoints, which can get information on various cats, kittens, and breeds in our database.
+Welcome to the Merus API dcoumentation.
 
-We have language bindings in Shell, Ruby, and Python! You can view code examples in the dark area to the right, and you can switch the programming language of the examples with the tabs in the top right.
-
-This example API documentation page was created with [Slate](http://github.com/tripit/slate). Feel free to edit it and use it as a base for your own API's documentation.
+Sample code is available in shell and JavaScript.
 
 # Authentication
 
-> To authorize, use this code:
+## OAuth
 
-```ruby
-require 'kittn'
+The Merus API uses OAuth 2.0 to provide third party apps with access to users' accounts without directly requiring their password.
 
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-```
+Accessing most endpoints requires an OAuth access token.
 
-```python
-import kittn
+In order to use OAuth, you must [register an app](#apps) with the API. This will provide an app id and key which can be used to authenticate users.
 
-api = kittn.authorize('meowmeowmeow')
-```
+1. Redirect users to request access:
 
-```shell
-# With shell, you can just pass the correct header with each request
-curl "api_endpoint_here"
-  -H "Authorization: meowmeowmeow"
-```
+    ### Request
 
-> Make sure to replace `meowmeowmeow` with your API key.
+    `GET https://api.meruscase.com/auth/authorize`
 
-Kittn uses API keys to allow access to the API. You can register a new Kittn API key at our [developer portal](http://example.com/developers).
+    ### Parameters
 
-Kittn expects for the API key to be included in all API requests to the server in a header that looks like the following:
+    Name           | Type    | Description
+    ---------------|---------|---------------------------------------------------------------------------
+    `client_id`    | integer | **Required** The app's id
+    `redirect_uri` | string  | **Required** The app's callback URL
+    `response_type`| string  | **Required** The OAuth2 response type. Currently only `code` is supported.
 
-`Authorization: meowmeowmeow`
+2. Exchange the authorization code for an access token
 
-<aside class="notice">
-You must replace <code>meowmeowmeow</code> with your personal API key.
-</aside>
+    After the user has authorized the application, they will be redirected
+    to the `redirect_uri`, with a `code` param. This param can be exchanged
+    for an access token:
 
-# Kittens
+    ### Request
 
-## Get All Kittens
+    `POST https://kepler.example.com/auth/token`
 
-```ruby
-require 'kittn'
+    ### Parameters
 
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-api.kittens.get
-```
+    Name            | Type    | Description
+    ----------------|---------|-------------------------------------------------------------------------------
+    `client_id`     | integer | **Required** The app's id
+    `client_secret` | string  | **Required** The app's secret key
+    `code`          | string  | **Required** The OAuth2 access code received after a successful authorization.
 
-```python
-import kittn
-
-api = kittn.authorize('meowmeowmeow')
-api.kittens.get()
-```
+## HTTP Basic Auth
 
 ```shell
-curl "http://example.com/api/kittens"
-  -H "Authorization: meowmeowmeow"
+curl -u user@example.com https://api.meruscase.com/users/me
 ```
 
-> The above command returns JSON structured like this:
+```javascript
+var Merus = require('merus'),
+    merus = Merus('user@example.com', 'opensesame');
 
-```json
-[
-  {
-    "id": 1,
-    "name": "Fluffums",
-    "breed": "calico",
-    "fluffiness": 6,
-    "cuteness": 7
-  },
-  {
-    "id": 2,
-    "name": "Isis",
-    "breed": "unknown",
-    "fluffiness": 5,
-    "cuteness": 10
-  }
-]
+merus.users.me(function(err, data){
+  console.log(data);
+});
 ```
-
-This endpoint retrieves all kittens.
-
-### HTTP Request
-
-`GET http://example.com/kittens`
-
-### Query Parameters
-
-Parameter | Default | Description
---------- | ------- | -----------
-include_cats | false | If set to true, the result will also include cats.
-available | true | If set to false, the result will include kittens that have already been adopted.
-
-<aside class="success">
-Remember — a happy kitten is an authenticated kitten!
-</aside>
-
-## Get a Specific Kitten
-
-```ruby
-require 'kittn'
-
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-api.kittens.get(2)
-```
-
-```python
-import kittn
-
-api = kittn.authorize('meowmeowmeow')
-api.kittens.get(2)
-```
-
-```shell
-curl "http://example.com/api/kittens/3"
-  -H "Authorization: meowmeowmeow"
-```
-
-> The above command returns JSON structured like this:
 
 ```json
 {
-  "id": 2,
-  "name": "Isis",
-  "breed": "unknown",
-  "fluffiness": 5,
-  "cuteness": 10
+  "id": 2000,
+  "username": "user@example.com",
+  "firm_id": 101,
+  "user_type_id": 9,
+  "created": "2013-07-19T10:35:08.000Z",
+  "modified": "2013-07-19T15:04:04.000Z"
 }
 ```
 
-This endpoint retrieves a specific kitten.
+The API can also be accessed with HTTP basic auth, using a user's credentials. This is provided for scripting and debugging purposes.
 
-<aside class="warning">If you're not using an administrator API key, note that some kittens will return 403 Forbidden if they are hidden for admins only.</aside>
+<aside class="warning">
+Third party applications <b>must not ask for or collect Merus credentials</b>. Users should be directed through the OAuth flow.
+</aside>
 
-### HTTP Request
+# Apps
 
-`GET http://example.com/kittens/<ID>`
+## Creating an App
 
-### URL Parameters
+```shell
+curl -u hello@example.com \
+  -d redirect_uri=https://example.com/auth/merus/callback \
+  https://api.meruscase.com
+```
 
-Parameter | Description
---------- | -----------
-ID | The ID of the cat to retrieve
+```javascript
+
+merus.apps.create(function(err, res){
+  console.log(res);
+});
+```
+
+```json
+{
+  "id": 12,
+  "key": "b827e00a-5924-42b4-a59f-2dccc557e68b",
+  "callback_url": "https://example.com/auth/kepler/callback"
+}
+```
+
+### Request
+
+`POST /api/apps`
+
+### Parameters
+
+Name           | Type   | Description
+---------------|--------|------------------------------------------
+`redirect_uri` | string | **Required** The application's callback URL
+
+# CaseFiles
+# Documents
+# Users
+
+## Getting the current user
+```shell
+curl -H 'Authorization: Bearer 06d83c40-c22f-482c-ae30-31d10fd8e9e6' \
+  https://kepler.example.com/users/me`
+```
+
+```javascript
+merus.users.me(function(err, res){
+  console.log(res);
+});
+```
+
+```json
+{
+  "id": 25,
+  "username": "test-user",
+  "created": "2015-04-14T17:47:20.000Z",
+  "modified": "2015-04-14T17:47:20.000Z"
+}
+```
+
+Gets information on the current user
+
+### Request
+`GET /api/users/me`
 
