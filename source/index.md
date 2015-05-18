@@ -160,3 +160,34 @@ Gets information on the current user
 ### Request
 `GET /v1/users/me`
 
+## Getting a list of users
+
+```shell
+curl -H 'Authorization: Bearer 06d83c40-c22f-482c-ae30-31d10fd8e9e6' \
+  https://api.meruscase.com/v1/users`
+```
+
+```javascript
+merus.users(function(err, res){
+  console.log(res);
+});
+```
+
+```json
+[{
+  "id": 25,
+  "username": "test-user",
+  "created": "2015-04-14T17:47:20.000Z",
+  "modified": "2015-04-14T17:47:20.000Z"
+},{
+  "id": 28,
+  "username": "other-test-user",
+  "created": "2015-04-14T17:47:20.000Z",
+  "modified": "2015-04-14T17:47:20.000Z"
+}]
+```
+
+Gets information on all visible users
+
+### Request
+`GET /v1/users`
