@@ -228,7 +228,7 @@ Third party applications <b>must not ask for or collect Merus credentials</b>. U
 
 <h3 id="request">Request</h3>
 
-<p><code class="prettyprint">GET /v1/users</code></p>
+<p><code class="prettyprint">GET /v1/users/me</code></p>
 
 <h2 id="getting-a-list-of-users">Getting a list of users</h2>
 <pre class="highlight shell"><code>curl -H <span class="s1">'Authorization: Bearer 06d83c40-c22f-482c-ae30-31d10fd8e9e6'</span> <span class="se">\</span>
@@ -250,6 +250,12 @@ Third party applications <b>must not ask for or collect Merus credentials</b>. U
   </span><span class="s2">"modified"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-04-14T17:47:20.000Z"</span><span class="w">
 </span><span class="p">}]</span><span class="w">
 </span></code></pre>
+
+<p>Gets information on all visible users</p>
+
+<h3 id="request">Request</h3>
+
+<p>`GET /v1/users</p>
 
       </div>
       <div class="dark-box">
