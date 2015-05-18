@@ -63,7 +63,7 @@ In order to use OAuth, you must [register an app](#apps) with the API. This will
 ## HTTP Basic Auth
 
 ```shell
-curl -u user@example.com https://api.meruscase.com/users/me
+curl -u user@example.com https://api.meruscase.com/v1/users/me
 ```
 
 ```javascript
@@ -98,8 +98,9 @@ Third party applications <b>must not ask for or collect Merus credentials</b>. U
 
 ```shell
 curl -u hello@example.com \
+  -d name="Hello World" \
   -d redirect_uri=https://example.com/auth/merus/callback \
-  https://api.meruscase.com
+  https://api.meruscase.com/v1/apps
 ```
 
 ```javascript
@@ -112,6 +113,7 @@ merus.apps.create(function(err, res){
 ```json
 {
   "id": 12,
+  "name": "Hello World",
   "key": "b827e00a-5924-42b4-a59f-2dccc557e68b",
   "callback_url": "https://example.com/auth/kepler/callback"
 }
@@ -119,13 +121,14 @@ merus.apps.create(function(err, res){
 
 ### Request
 
-`POST /api/apps`
+`POST /v1/apps`
 
 ### Parameters
 
 Name           | Type   | Description
 ---------------|--------|------------------------------------------
 `redirect_uri` | string | **Required** The application's callback URL
+`name`         | string | The applicatin's display name
 
 # CaseFiles
 # Documents
@@ -134,7 +137,7 @@ Name           | Type   | Description
 ## Getting the current user
 ```shell
 curl -H 'Authorization: Bearer 06d83c40-c22f-482c-ae30-31d10fd8e9e6' \
-  https://kepler.example.com/users/me`
+  https://api.meruscase.com/v1/users/me`
 ```
 
 ```javascript
@@ -155,5 +158,32 @@ merus.users.me(function(err, res){
 Gets information on the current user
 
 ### Request
-`GET /api/users/me`
+`GET /v1/users`
+
+## Getting a list of users
+
+```shell
+curl -H 'Authorization: Bearer 06d83c40-c22f-482c-ae30-31d10fd8e9e6' \
+  https://api.meruscase.com/v1/users`
+```
+
+```javascript
+merus.users(function(err, res){
+  console.log(res);
+});
+```
+
+```json
+[{
+  "id": 25,
+  "username": "test-user",
+  "created": "2015-04-14T17:47:20.000Z",
+  "modified": "2015-04-14T17:47:20.000Z"
+},{
+  "id": 28,
+  "username": "other-test-user",
+  "created": "2015-04-14T17:47:20.000Z",
+  "modified": "2015-04-14T17:47:20.000Z"
+}]
+```
 
