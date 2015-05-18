@@ -131,7 +131,7 @@ for an access token:</p>
 </ol>
 
 <h2 id="http-basic-auth">HTTP Basic Auth</h2>
-<pre class="highlight shell"><code>curl -u user@example.com https://api.meruscase.com/users/me
+<pre class="highlight shell"><code>curl -u user@example.com https://api.meruscase.com/v1/users/me
 </code></pre>
 <pre class="highlight javascript"><code><span class="kd">var</span> <span class="nx">Merus</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'merus'</span><span class="p">),</span>
     <span class="nx">merus</span> <span class="o">=</span> <span class="nx">Merus</span><span class="p">(</span><span class="s1">'user@example.com'</span><span class="p">,</span> <span class="s1">'opensesame'</span><span class="p">);</span>
@@ -160,8 +160,9 @@ Third party applications <b>must not ask for or collect Merus credentials</b>. U
 
 <h2 id="creating-an-app">Creating an App</h2>
 <pre class="highlight shell"><code>curl -u hello@example.com <span class="se">\</span>
+  -d <span class="nv">name</span><span class="o">=</span><span class="s2">"Hello World"</span> <span class="se">\</span>
   -d <span class="nv">redirect_uri</span><span class="o">=</span>https://example.com/auth/merus/callback <span class="se">\</span>
-  https://api.meruscase.com
+  https://api.meruscase.com/v1/apps
 </code></pre>
 <pre class="highlight javascript"><code>
 <span class="nx">merus</span><span class="p">.</span><span class="nx">apps</span><span class="p">.</span><span class="nx">create</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">res</span><span class="p">){</span>
@@ -170,6 +171,7 @@ Third party applications <b>must not ask for or collect Merus credentials</b>. U
 </code></pre>
 <pre class="highlight json"><code><span class="p">{</span><span class="w">
   </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">12</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Hello World"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"key"</span><span class="p">:</span><span class="w"> </span><span class="s2">"b827e00a-5924-42b4-a59f-2dccc557e68b"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"callback_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://example.com/auth/kepler/callback"</span><span class="w">
 </span><span class="p">}</span><span class="w">
@@ -177,7 +179,7 @@ Third party applications <b>must not ask for or collect Merus credentials</b>. U
 
 <h3 id="request">Request</h3>
 
-<p><code class="prettyprint">POST /api/apps</code></p>
+<p><code class="prettyprint">POST /v1/apps</code></p>
 
 <h3 id="parameters">Parameters</h3>
 
@@ -193,6 +195,11 @@ Third party applications <b>must not ask for or collect Merus credentials</b>. U
 <td>string</td>
 <td><strong>Required</strong> The application&rsquo;s callback URL</td>
 </tr>
+<tr>
+<td><code class="prettyprint">name</code></td>
+<td>string</td>
+<td>The applicatin&rsquo;s display name</td>
+</tr>
 </tbody></table>
 
 <h1 id="casefiles">CaseFiles</h1>
@@ -203,7 +210,7 @@ Third party applications <b>must not ask for or collect Merus credentials</b>. U
 
 <h2 id="getting-the-current-user">Getting the current user</h2>
 <pre class="highlight shell"><code>curl -H <span class="s1">'Authorization: Bearer 06d83c40-c22f-482c-ae30-31d10fd8e9e6'</span> <span class="se">\</span>
-  https://kepler.example.com/users/me<span class="sb">`</span>
+  https://api.meruscase.com/v1/users/me<span class="sb">`</span>
 </code></pre>
 <pre class="highlight javascript"><code><span class="nx">merus</span><span class="p">.</span><span class="nx">users</span><span class="p">.</span><span class="nx">me</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">res</span><span class="p">){</span>
   <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">res</span><span class="p">);</span>
@@ -221,7 +228,28 @@ Third party applications <b>must not ask for or collect Merus credentials</b>. U
 
 <h3 id="request">Request</h3>
 
-<p><code class="prettyprint">GET /api/users/me</code></p>
+<p><code class="prettyprint">GET /v1/users</code></p>
+
+<h2 id="getting-a-list-of-users">Getting a list of users</h2>
+<pre class="highlight shell"><code>curl -H <span class="s1">'Authorization: Bearer 06d83c40-c22f-482c-ae30-31d10fd8e9e6'</span> <span class="se">\</span>
+  https://api.meruscase.com/v1/users<span class="sb">`</span>
+</code></pre>
+<pre class="highlight javascript"><code><span class="nx">merus</span><span class="p">.</span><span class="nx">users</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">res</span><span class="p">){</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">res</span><span class="p">);</span>
+<span class="p">});</span>
+</code></pre>
+<pre class="highlight json"><code><span class="p">[{</span><span class="w">
+  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">25</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"username"</span><span class="p">:</span><span class="w"> </span><span class="s2">"test-user"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"created"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-04-14T17:47:20.000Z"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"modified"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-04-14T17:47:20.000Z"</span><span class="w">
+</span><span class="p">},{</span><span class="w">
+  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">28</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"username"</span><span class="p">:</span><span class="w"> </span><span class="s2">"other-test-user"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"created"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-04-14T17:47:20.000Z"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"modified"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-04-14T17:47:20.000Z"</span><span class="w">
+</span><span class="p">}]</span><span class="w">
+</span></code></pre>
 
       </div>
       <div class="dark-box">
