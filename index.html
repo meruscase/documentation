@@ -198,19 +198,101 @@ Third party applications <b>must not ask for or collect Merus credentials</b>. U
 <tr>
 <td><code class="prettyprint">name</code></td>
 <td>string</td>
-<td>The applicatin&rsquo;s display name</td>
+<td>The application&rsquo;s display name</td>
 </tr>
 </tbody></table>
 
 <h1 id="casefiles">CaseFiles</h1>
 
+<h2 id="searching-for-a-casefile">Searching for a casefile</h2>
+<pre class="highlight shell"><code>curl -H <span class="s1">'Authorization: Bearer 06d83c40-c22f-482c-ae30-31d10fd8e9e6'</span> <span class="se">\</span>
+  https://api.meruscase.com/v1/casefiles/search?name<span class="o">=</span>ADJ2001
+</code></pre>
+<pre class="highlight javascript"><code><span class="kd">var</span> <span class="nx">params</span> <span class="o">=</span> <span class="p">{</span><span class="na">name</span><span class="p">:</span> <span class="s1">'ADJ2001'</span><span class="p">};</span>
+<span class="nx">merus</span><span class="p">.</span><span class="nx">casefiles</span><span class="p">.</span><span class="nx">search</span><span class="p">(</span><span class="nx">params</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">res</span><span class="p">){</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">res</span><span class="p">);</span>
+<span class="p">});</span>
+</code></pre>
+
+<p>Searches for casefiles that match the given query parameters. Search parameters
+use an implicit wildcard, so a parameter with a value of &ldquo;ABC&rdquo; will match a
+casefile with &ldquo;ABC123&rdquo;.</p>
+
+<table><thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code class="prettyprint">name</code></td>
+<td>string</td>
+<td>The casefile&rsquo;s name</td>
+</tr>
+<tr>
+<td><code class="prettyprint">file_number</code></td>
+<td>string</td>
+<td>The casefile&rsquo;s file number</td>
+</tr>
+<tr>
+<td><code class="prettyprint">case_file_number</code></td>
+<td>string</td>
+<td>The casefile&rsquo;s case file number</td>
+</tr>
+</tbody></table>
+
+<h2 id="adding-a-document">Adding a document</h2>
+<pre class="highlight shell"><code>curl -H <span class="s1">'Authorization: Bearer 06d83c40-c22f-482c-ae30-31d10fd8e9e6'</span> <span class="se">\</span>
+  -F <span class="s1">'file=@doc.rtf;type=application/rtf'</span>
+  https://api.meruscase.com/v1/casefiles/100/documents
+</code></pre>
+
+<p>Adds a document to the casefile.</p>
+
+<table><thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code class="prettyprint">file</code></td>
+<td>file</td>
+<td>The file contents</td>
+</tr>
+</tbody></table>
+
 <h1 id="documents">Documents</h1>
+
+<h2 id="adding-a-document">Adding a document</h2>
+<pre class="highlight shell"><code>curl -H <span class="s1">'Authorization: Bearer 06d83c40-c22f-482c-ae30-31d10fd8e9e6'</span> <span class="se">\</span>
+  -F <span class="s1">'file=@doc.pdf;type=application/pdf'</span>
+  https://api.meruscase.com/v1/documents
+</code></pre>
+
+<p>Adds a document to the firm&rsquo;s document index.</p>
+
+<table><thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code class="prettyprint">file</code></td>
+<td>file</td>
+<td>The file contents</td>
+</tr>
+</tbody></table>
 
 <h1 id="users">Users</h1>
 
 <h2 id="getting-the-current-user">Getting the current user</h2>
 <pre class="highlight shell"><code>curl -H <span class="s1">'Authorization: Bearer 06d83c40-c22f-482c-ae30-31d10fd8e9e6'</span> <span class="se">\</span>
-  https://api.meruscase.com/v1/users/me<span class="sb">`</span>
+  https://api.meruscase.com/v1/users/me
 </code></pre>
 <pre class="highlight javascript"><code><span class="nx">merus</span><span class="p">.</span><span class="nx">users</span><span class="p">.</span><span class="nx">me</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">res</span><span class="p">){</span>
   <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">res</span><span class="p">);</span>
@@ -232,7 +314,7 @@ Third party applications <b>must not ask for or collect Merus credentials</b>. U
 
 <h2 id="getting-a-list-of-users">Getting a list of users</h2>
 <pre class="highlight shell"><code>curl -H <span class="s1">'Authorization: Bearer 06d83c40-c22f-482c-ae30-31d10fd8e9e6'</span> <span class="se">\</span>
-  https://api.meruscase.com/v1/users<span class="sb">`</span>
+  https://api.meruscase.com/v1/users
 </code></pre>
 <pre class="highlight javascript"><code><span class="nx">merus</span><span class="p">.</span><span class="nx">users</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">res</span><span class="p">){</span>
   <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">res</span><span class="p">);</span>
