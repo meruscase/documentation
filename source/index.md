@@ -128,16 +128,70 @@ merus.apps.create(function(err, res){
 Name           | Type   | Description
 ---------------|--------|------------------------------------------
 `redirect_uri` | string | **Required** The application's callback URL
-`name`         | string | The applicatin's display name
+`name`         | string | The application's display name
 
 # CaseFiles
+
+## Searching for a casefile
+
+```shell
+curl -H 'Authorization: Bearer 06d83c40-c22f-482c-ae30-31d10fd8e9e6' \
+  https://api.meruscase.com/v1/casefiles/search?name=ADJ2001
+```
+
+```javascript
+var params = {name: 'ADJ2001'};
+merus.casefiles.search(params, function(err, res){
+  console.log(res);
+});
+```
+
+Searches for casefiles that match the given query parameters. Search parameters
+use an implicit wildcard, so a parameter with a value of "ABC" will match a
+casefile with "ABC123".
+
+Name               | Type   | Description
+-------------------|--------|------------------------------------------
+`name`             | string | The casefile's name
+`file_number`      | string | The casefile's file number
+`case_file_number` | string | The casefile's case file number
+
+## Adding a document
+
+```shell
+curl -H 'Authorization: Bearer 06d83c40-c22f-482c-ae30-31d10fd8e9e6' \
+  -F 'file=@doc.rtf;type=application/rtf'
+  https://api.meruscase.com/v1/casefiles/100/documents
+```
+
+Adds a document to the casefile.
+
+Name   | Type  | Description
+-------|-------|-------------------
+`file` | file  | The file contents
+
 # Documents
+
+## Adding a document
+
+```shell
+curl -H 'Authorization: Bearer 06d83c40-c22f-482c-ae30-31d10fd8e9e6' \
+  -F 'file=@doc.pdf;type=application/pdf'
+  https://api.meruscase.com/v1/documents
+```
+
+Adds a document to the firm's document index.
+
+Name   | Type  | Description
+-------|-------|-------------------
+`file` | file  | The file contents
+
 # Users
 
 ## Getting the current user
 ```shell
 curl -H 'Authorization: Bearer 06d83c40-c22f-482c-ae30-31d10fd8e9e6' \
-  https://api.meruscase.com/v1/users/me`
+  https://api.meruscase.com/v1/users/me
 ```
 
 ```javascript
@@ -164,7 +218,7 @@ Gets information on the current user
 
 ```shell
 curl -H 'Authorization: Bearer 06d83c40-c22f-482c-ae30-31d10fd8e9e6' \
-  https://api.meruscase.com/v1/users`
+  https://api.meruscase.com/v1/users
 ```
 
 ```javascript
