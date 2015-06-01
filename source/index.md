@@ -92,6 +92,19 @@ The API can also be accessed with HTTP basic auth, using a user's credentials. T
 Third party applications <b>must not ask for or collect Merus credentials</b>. Users should be directed through the OAuth flow.
 </aside>
 
+## Rate Limiting
+
+The API limits apps to 1000 requests per user per hour.
+
+And app can observe the rate limit, remaining quota, and reset time in any API request's response headers.
+
+```http
+HTTP/1.1 200 OK
+X-Ratelimit-Limit: 1000
+X-Ratelimit-Remaining: 998
+X-Ratelimit-Reset: 1433196000
+```
+
 # Apps
 
 ## Creating an App
