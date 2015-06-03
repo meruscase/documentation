@@ -183,6 +183,17 @@ Name   | Type  | Description
 -------|-------|-------------------
 `file` | file  | The file contents
 
+### Supported Document Types
+
+The following MIME types are supported:
+
+* `application/pdf`
+* `application/vnd.openxmlformats-officedocument.wordprocessingml.document`
+* `application/msword`
+* `application/wordperfect`
+* `application/rtf`
+* `text/plain`
+
 # Documents
 
 ## Adding a document
@@ -198,6 +209,12 @@ Adds a document to the firm's document index.
 Name   | Type  | Description
 -------|-------|-------------------
 `file` | file  | The file contents
+
+### Supported Document Types
+
+The following MIME types are supported:
+
+* `application/pdf`
 
 # Users
 
