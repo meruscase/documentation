@@ -166,8 +166,6 @@ casefile with "ABC123".
 Name               | Type   | Description
 -------------------|--------|------------------------------------------
 `name`             | string | The casefile's name
-`file_number`      | string | The casefile's file number
-`case_file_number` | string | The casefile's case file number
 
 ## Adding a document
 
