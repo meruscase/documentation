@@ -50,7 +50,7 @@ In order to use OAuth, you must [register an app](#apps) with the API. This will
 
     ### Request
 
-    `POST https://kepler.example.com/auth/token`
+    `POST https://api.meruscase.com/auth/token`
 
     ### Parameters
 
