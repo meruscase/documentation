@@ -163,6 +163,12 @@ Searches for casefiles that match the given query parameters. Search parameters
 use an implicit wildcard, so a parameter with a value of "ABC" will match a
 casefile with "ABC123".
 
+### Request
+
+`GET /v1/casefiles/search`
+
+### Parameters
+
 Name               | Type   | Description
 -------------------|--------|------------------------------------------
 `name`             | string | The casefile's name
@@ -176,6 +182,12 @@ curl -H 'Authorization: Bearer 06d83c40-c22f-482c-ae30-31d10fd8e9e6' \
 ```
 
 Adds a document to the casefile.
+
+### Request
+
+`POST /v1/casefiles/:id/documents`
+
+### Parameters
 
 Name   | Type  | Description
 -------|-------|-------------------
@@ -203,6 +215,12 @@ curl -H 'Authorization: Bearer 06d83c40-c22f-482c-ae30-31d10fd8e9e6' \
 ```
 
 Adds a document to the firm's document index.
+
+### Request
+
+`POST /v1/documents`
+
+### Parameters
 
 Name   | Type  | Description
 -------|-------|-------------------
