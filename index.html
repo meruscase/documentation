@@ -188,6 +188,8 @@ Third party applications <b>must not ask for or collect Merus credentials</b>. U
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 
+<p>API consumers must register an app in order to initiate OAuth sessions and act on behalf of a user. Apps may be created using an existing Merus account.</p>
+
 <h3 id="request">Request</h3>
 
 <p><code class="prettyprint">POST /v1/apps</code></p>
@@ -229,6 +231,12 @@ Third party applications <b>must not ask for or collect Merus credentials</b>. U
 use an implicit wildcard, so a parameter with a value of &ldquo;ABC&rdquo; will match a
 casefile with &ldquo;ABC123&rdquo;.</p>
 
+<h3 id="request">Request</h3>
+
+<p><code class="prettyprint">GET /v1/casefiles/search</code></p>
+
+<h3 id="parameters">Parameters</h3>
+
 <table><thead>
 <tr>
 <th>Name</th>
@@ -250,6 +258,12 @@ casefile with &ldquo;ABC123&rdquo;.</p>
 </code></pre>
 
 <p>Adds a document to the casefile.</p>
+
+<h3 id="request">Request</h3>
+
+<p><code class="prettyprint">POST /v1/casefiles/:id/documents</code></p>
+
+<h3 id="parameters">Parameters</h3>
 
 <table><thead>
 <tr>
@@ -287,6 +301,12 @@ casefile with &ldquo;ABC123&rdquo;.</p>
 </code></pre>
 
 <p>Adds a document to the firm&rsquo;s document index.</p>
+
+<h3 id="request">Request</h3>
+
+<p><code class="prettyprint">POST /v1/documents</code></p>
+
+<h3 id="parameters">Parameters</h3>
 
 <table><thead>
 <tr>
