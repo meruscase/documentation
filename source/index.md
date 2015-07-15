@@ -132,6 +132,8 @@ merus.apps.create(function(err, res){
 }
 ```
 
+API consumers must register an app in order to initiate OAuth sessions and act on behalf of a user. Apps may be created using an existing Merus account.
+
 ### Request
 
 `POST /v1/apps`
