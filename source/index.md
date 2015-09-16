@@ -6,7 +6,7 @@ language_tabs:
   - javascript
 
 toc_footers:
-  - <a href='#apps'>Sign Up for a Developer Key</a>
+  - <a href='#creating-an-app'>Sign Up for a Developer Key</a>
   - <a href='http://github.com/tripit/slate'>Documentation Powered by Slate</a>
 
 search: true
@@ -107,6 +107,40 @@ X-Ratelimit-Reset: 1433196000
 
 # Apps
 
+## Getting Apps
+
+```shell
+curl -u hello@example.com https://api.meruscase.com/v1/apps
+```
+
+```javascript
+
+merus.apps.all(function(err, res){
+  console.log(res);
+});
+
+```
+
+```json
+[{
+  "id": 12,
+  "name": "Hello World",
+  "key": "b827e00a-5924-42b4-a59f-2dccc557e68b",
+  "callback_url": "https://example.com/auth/kepler/callback"
+},{
+  "id": 14,
+  "name": "FaceSpace",
+  "key": "2f337c7a-ec5e-4878-bed0-b2ef4686159c",
+  "callback_url": "https://example.org/auth/kepler/callback"
+}]
+```
+
+Lists all apps registered to a user.
+
+### Request
+
+`GET /v1/apps`
+
 ## Creating an App
 
 ```shell
@@ -144,6 +178,8 @@ Name           | Type   | Description
 ---------------|--------|------------------------------------------
 `redirect_uri` | string | **Required** The application's callback URL
 `name`         | string | The application's display name
+
+##
 
 # CaseFiles
 
