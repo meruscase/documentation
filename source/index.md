@@ -18,6 +18,15 @@ Welcome to the Merus API dcoumentation.
 
 Sample code is available in shell and JavaScript.
 
+## Stability
+
+Endpoints are annotated with a stability attribute, which will be set to one of the following values:
+
+Stability    | Description
+-------------|------------
+`production` | Ready for production use; only subject to emergency or compatible changes.
+`private`    | Intended for internal Merus use only; subject to change and compabilty only with internal apps.
+
 # Authentication
 
 ## OAuth
@@ -105,6 +114,12 @@ X-Ratelimit-Remaining: 998
 X-Ratelimit-Reset: 1433196000
 ```
 
+## Creating a User
+
+Stability `Private`
+
+Creates a new user.
+
 # Apps
 
 ## Getting Apps
@@ -134,6 +149,8 @@ merus.apps.all(function(err, res){
   "callback_url": "https://example.org/auth/kepler/callback"
 }]
 ```
+
+Stability: `Production`
 
 Lists all apps registered to a user.
 
@@ -166,6 +183,8 @@ merus.apps.create(function(err, res){
 }
 ```
 
+Stability: `Production`
+
 API consumers must register an app in order to initiate OAuth sessions and act on behalf of a user. Apps may be created using an existing Merus account.
 
 ### Request
@@ -178,8 +197,6 @@ Name           | Type   | Description
 ---------------|--------|------------------------------------------
 `redirect_uri` | string | **Required** The application's callback URL
 `name`         | string | The application's display name
-
-##
 
 # CaseFiles
 
@@ -196,6 +213,8 @@ merus.casefiles.search(params, function(err, res){
   console.log(res);
 });
 ```
+
+Stability: `Production`
 
 Searches for casefiles that match the given query parameters. Search parameters
 use an implicit wildcard, so a parameter with a value of "ABC" will match a
@@ -218,6 +237,8 @@ curl -H 'Authorization: Bearer 06d83c40-c22f-482c-ae30-31d10fd8e9e6' \
   -F 'file=@doc.rtf;type=application/rtf'
   https://api.meruscase.com/v1/casefiles/100/documents
 ```
+
+Stability: `Production`
 
 Adds a document to the casefile.
 
@@ -251,6 +272,8 @@ curl -H 'Authorization: Bearer 06d83c40-c22f-482c-ae30-31d10fd8e9e6' \
   -F 'file=@doc.pdf;type=application/pdf'
   https://api.meruscase.com/v1/documents
 ```
+
+Stability: `Production`
 
 Adds a document to the firm's document index.
 
@@ -293,6 +316,8 @@ merus.users.me(function(err, res){
 }
 ```
 
+Stability: `Production`
+
 Gets information on the current user
 
 ### Request
@@ -324,6 +349,8 @@ merus.users(function(err, res){
   "modified": "2015-04-14T17:47:20.000Z"
 }]
 ```
+
+Stability: `Production`
 
 Gets information on all visible users
 
