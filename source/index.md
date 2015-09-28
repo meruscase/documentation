@@ -120,6 +120,16 @@ Stability `Private`
 
 Creates a new user.
 
+<aside class="notice">&#128679; Documentation is in progress. &#128679;</aside>
+
+## Creating an Authorization
+
+Stability `Private`
+
+Creates an authorization on behalf of a user.
+
+<aside class="notice">&#128679; Documentation is in progress. &#128679;</aside>
+
 # Apps
 
 ## Getting Apps
