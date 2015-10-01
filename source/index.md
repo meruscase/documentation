@@ -6,7 +6,7 @@ language_tabs:
   - javascript
 
 toc_footers:
-  - <a href='#apps'>Sign Up for a Developer Key</a>
+  - <a href='#creating-an-app'>Sign Up for a Developer Key</a>
   - <a href='http://github.com/tripit/slate'>Documentation Powered by Slate</a>
 
 search: true
@@ -17,6 +17,16 @@ search: true
 Welcome to the Merus API dcoumentation.
 
 Sample code is available in shell and JavaScript.
+
+## Stability
+
+Endpoints (and some endpoints' parameters) are annotated with a stability attribute, which will be set to one of the following values:
+
+Stability     | Description
+--------------|------------
+`production`  | Ready for production use; only subject to emergency or compatible changes.
+`development` | Ready for use in developing new features; subject to breaking changes.
+`private`     | Intended for internal Merus use only; subject to change and compabilty only with internal apps.
 
 # Authentication
 
@@ -105,7 +115,59 @@ X-Ratelimit-Remaining: 998
 X-Ratelimit-Reset: 1433196000
 ```
 
+## Creating a User
+
+Stability `Private`
+
+Creates a new user.
+
+<aside class="notice">&#128679; Documentation is in progress. &#128679;</aside>
+
+## Creating an Authorization
+
+Stability `Private`
+
+Creates an authorization on behalf of a user.
+
+<aside class="notice">&#128679; Documentation is in progress. &#128679;</aside>
+
 # Apps
+
+## Getting Apps
+
+```shell
+curl -u hello@example.com https://api.meruscase.com/v1/apps
+```
+
+```javascript
+
+merus.apps.all(function(err, res){
+  console.log(res);
+});
+
+```
+
+```json
+[{
+  "id": 12,
+  "name": "Hello World",
+  "key": "b827e00a-5924-42b4-a59f-2dccc557e68b",
+  "callback_url": "https://example.com/auth/kepler/callback"
+},{
+  "id": 14,
+  "name": "FaceSpace",
+  "key": "2f337c7a-ec5e-4878-bed0-b2ef4686159c",
+  "callback_url": "https://example.org/auth/kepler/callback"
+}]
+```
+
+Stability: `Production`
+
+Lists all apps registered to a user.
+
+### Request
+
+`GET /v1/apps`
 
 ## Creating an App
 
@@ -131,6 +193,8 @@ merus.apps.create(function(err, res){
   "callback_url": "https://example.com/auth/kepler/callback"
 }
 ```
+
+Stability: `Production`
 
 API consumers must register an app in order to initiate OAuth sessions and act on behalf of a user. Apps may be created using an existing Merus account.
 
@@ -161,6 +225,8 @@ merus.casefiles.search(params, function(err, res){
 });
 ```
 
+Stability: `Production`
+
 Searches for casefiles that match the given query parameters. Search parameters
 use an implicit wildcard, so a parameter with a value of "ABC" will match a
 casefile with "ABC123".
@@ -179,9 +245,19 @@ Name               | Type   | Description
 
 ```shell
 curl -H 'Authorization: Bearer 06d83c40-c22f-482c-ae30-31d10fd8e9e6' \
-  -F 'file=@doc.rtf;type=application/rtf'
+  -F 'file=@doc.rtf;type=application/rtf' \
   https://api.meruscase.com/v1/casefiles/100/documents
+
+# Or, to upload with a custom activity:
+
+curl -H 'Authorization: Bearer 06d83c40-c22f-482c-ae30-31d10fd8e9e6' \
+  -F 'file=@doc.rtf;type=application/rtf' \
+  -F 'activity[body]=Hello, Merus!' \
+  -F 'activity[tags][]=Support' \
+  https://api.meruscase.com/v1/casefiles/101/documents
 ```
+
+Stability: `Production`
 
 Adds a document to the casefile.
 
@@ -191,9 +267,11 @@ Adds a document to the casefile.
 
 ### Parameters
 
-Name   | Type  | Description
--------|-------|-------------------
-`file` | file  | The file contents
+Name               | Type   | Stability     | Description
+-------------------|--------|---------------|------------------
+`file`             | file   | `production`  | The file contents
+`activity[body]`   | string | `development` | The body of the activity that will be attached to the casefile.
+`activity[tags][]` | string | `development` | A string name of a tag that will be applied to the activity. May be repeated for multiple tags.
 
 ### Supported Document Types
 
@@ -212,9 +290,11 @@ The following MIME types are supported:
 
 ```shell
 curl -H 'Authorization: Bearer 06d83c40-c22f-482c-ae30-31d10fd8e9e6' \
-  -F 'file=@doc.pdf;type=application/pdf'
+  -F 'file=@doc.pdf;type=application/pdf' \
   https://api.meruscase.com/v1/documents
 ```
+
+Stability: `Production`
 
 Adds a document to the firm's document index.
 
@@ -257,6 +337,8 @@ merus.users.me(function(err, res){
 }
 ```
 
+Stability: `Production`
+
 Gets information on the current user
 
 ### Request
@@ -288,6 +370,8 @@ merus.users(function(err, res){
   "modified": "2015-04-14T17:47:20.000Z"
 }]
 ```
+
+Stability: `Production`
 
 Gets information on all visible users
 
