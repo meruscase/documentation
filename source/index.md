@@ -131,6 +131,21 @@ Creates an authorization on behalf of a user.
 
 <aside class="notice">&#128679; Documentation is in progress. &#128679;</aside>
 
+# Activities
+
+## Getting a list of activity tags
+
+Stability: `development`
+
+Gets a list of activity tags accessible to the user.
+
+<aside class="notice">&#128679; Documentation is in progress. &#128679;</aside>
+
+```shell
+curl -H 'Authorization: Bearer 06d83c40-c22f-482c-ae30-31d10fd8e9e6' \
+  https://api.meruscase.com/v1/activities/tags
+```
+
 # Apps
 
 ## Getting Apps
