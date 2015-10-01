@@ -20,12 +20,13 @@ Sample code is available in shell and JavaScript.
 
 ## Stability
 
-Endpoints are annotated with a stability attribute, which will be set to one of the following values:
+Endpoints (and some endpoints' parameters) are annotated with a stability attribute, which will be set to one of the following values:
 
-Stability    | Description
--------------|------------
-`production` | Ready for production use; only subject to emergency or compatible changes.
-`private`    | Intended for internal Merus use only; subject to change and compabilty only with internal apps.
+Stability     | Description
+--------------|------------
+`production`  | Ready for production use; only subject to emergency or compatible changes.
+`development` | Ready for use in developing new features; subject to breaking changes.
+`private`     | Intended for internal Merus use only; subject to change and compabilty only with internal apps.
 
 # Authentication
 
@@ -244,8 +245,16 @@ Name               | Type   | Description
 
 ```shell
 curl -H 'Authorization: Bearer 06d83c40-c22f-482c-ae30-31d10fd8e9e6' \
-  -F 'file=@doc.rtf;type=application/rtf'
+  -F 'file=@doc.rtf;type=application/rtf' \
   https://api.meruscase.com/v1/casefiles/100/documents
+
+# Or, to upload with a custom activity:
+
+curl -H 'Authorization: Bearer 06d83c40-c22f-482c-ae30-31d10fd8e9e6' \
+  -F 'file=@doc.rtf;type=application/rtf' \
+  -F 'activity[body]=Hello, Merus!' \
+  -F 'activity[tags][]=Support' \
+  https://api.meruscase.com/v1/casefiles/101/documents
 ```
 
 Stability: `Production`
@@ -258,9 +267,11 @@ Adds a document to the casefile.
 
 ### Parameters
 
-Name   | Type  | Description
--------|-------|-------------------
-`file` | file  | The file contents
+Name               | Type   | Stability     | Description
+-------------------|--------|---------------|------------------
+`file`             | file   | `production`  | The file contents
+`activity[body]`   | string | `development` | The body of the activity that will be attached to the casefile.
+`activity[tags][]` | string | `development` | A string name of a tag that will be applied to the activity. May be repeated for multiple tags.
 
 ### Supported Document Types
 
@@ -279,7 +290,7 @@ The following MIME types are supported:
 
 ```shell
 curl -H 'Authorization: Bearer 06d83c40-c22f-482c-ae30-31d10fd8e9e6' \
-  -F 'file=@doc.pdf;type=application/pdf'
+  -F 'file=@doc.pdf;type=application/pdf' \
   https://api.meruscase.com/v1/documents
 ```
 
