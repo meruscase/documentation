@@ -325,6 +325,51 @@ The following MIME types are supported:
 * `application/rtf`
 * `text/plain`
 
+## Adding a ledger item
+
+```shell
+curl -H 'Authorization: Bearer 06d83c40-c22f-482c-ae30-31d10fd8e9e6' \
+  https://api.meruscase.com/v1/casefiles/100/ledgers
+  -d 'created_by=123'
+```
+
+Stability: `Production`
+
+Adds an entry to the ledger.
+
+### Request
+
+`POST /v1/casefiles/:id/ledgers`
+
+### Parameters
+
+Name                     | Type    | Description
+-------------------------|---------|-------------------
+`created_by`             | integer | The user who is attached to the ledger.
+`ledger_type`            | string  | A string representation of one of the supported ledger types.
+`description`            | string  | A description of the item.
+`date`                   | date    | The date of the item.
+`account_id`             | integer | The id of the account.
+`hours`                  | float   | The number of hours associated with the entry.
+`hourly_rate`            | float   | The hourly rate to compute the total of the entry.
+`amount`                 | float   | The total amount of the item.
+`unit_cost`              | float   | The amount of one unit associated with the entry.
+`item_qty`               | integer | The quantity of items associate with the entry.
+`billto_contact_id`      | integer |
+`payto_contact_id`       | integer |
+`task_code`              | string  |
+`activity_code`          | string  |
+`expense_code`           | string  |
+`alternate_billing_code` | string  |
+`minimum_time_increment` | integer | Billing increment in minutes. Either 6 (tenths) or 15 (quarters).
+
+### Supported Ledger Types
+
+The following ledger types are supported:
+
+* `expense/generic`
+* `invoice/billable-time`
+
 # Documents
 
 ## Adding a document
