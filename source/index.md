@@ -349,7 +349,7 @@ Name                     | Type    | Description
 `ledger_type`            | string  | A string representation of one of the supported ledger types.
 `description`            | string  | A description of the item.
 `date`                   | date    | The date of the item.
-`account_id`             | integer | The id of the account.
+`account`                | string  | The string representation of the account.
 `hours`                  | float   | The number of hours associated with the entry.
 `hourly_rate`            | float   | The hourly rate to compute the total of the entry.
 `amount`                 | float   | The total amount of the item.
@@ -369,6 +369,13 @@ The following ledger types are supported:
 
 * `expense/generic`
 * `invoice/billable-time`
+
+### Supported Accounts
+
+The following account slugs are supported:
+
+* `operating/general`
+* `client/general`
 
 # Documents
 
