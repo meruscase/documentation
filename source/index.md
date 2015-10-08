@@ -329,13 +329,26 @@ The following MIME types are supported:
 
 ```shell
 curl -H 'Authorization: Bearer 06d83c40-c22f-482c-ae30-31d10fd8e9e6' \
-  https://api.meruscase.com/v1/casefiles/100/ledgers
-  -d 'created_by=123'
+  https://api.meruscase.com/v1/casefiles/100/ledgers \
+  -d 'user_id=123' \
+  -d 'created_by=123' \
+  -d 'ledger_type=expense/generic' \
+  -d 'description=Lunch with Bob' \
+  -d 'date=2015-10-04 12:30:00' \
+  -d 'amount=40.00'
 ```
 
 Stability: `Production`
 
 Adds an entry to the ledger.
+
+The entry should have one of the following:
+
+* an `amount`
+* a number of `hours` and an `hourly_rate`
+* or a `unit_cost` and `item_qty`
+
+The amount will be calculated accordingly.
 
 ### Request
 
@@ -355,12 +368,10 @@ Name                     | Type    | Description
 `amount`                 | float   | The total amount of the item.
 `unit_cost`              | float   | The amount of one unit associated with the entry.
 `item_qty`               | integer | The quantity of items associate with the entry.
-`billto_contact_id`      | integer |
-`payto_contact_id`       | integer |
-`task_code`              | string  |
-`activity_code`          | string  |
-`expense_code`           | string  |
-`alternate_billing_code` | string  |
+`task_code`              | string  | The task code
+`activity_code`          | string  | The activity code
+`expense_code`           | string  | The expense code
+`alternate_billing_code` | string  | The alternate billing code
 `minimum_time_increment` | integer | Billing increment in minutes. Either 6 (tenths) or 15 (quarters).
 
 ### Supported Ledger Types
