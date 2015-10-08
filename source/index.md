@@ -350,6 +350,8 @@ The entry should have one of the following:
 
 The amount will be calculated accordingly.
 
+The bill-to contact will be set to the casefile's bill-to contact by default.
+
 ### Request
 
 `POST /v1/casefiles/:id/ledgers`
