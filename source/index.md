@@ -325,6 +325,71 @@ The following MIME types are supported:
 * `application/rtf`
 * `text/plain`
 
+## Adding a ledger item
+
+```shell
+curl -H 'Authorization: Bearer 06d83c40-c22f-482c-ae30-31d10fd8e9e6' \
+  https://api.meruscase.com/v1/casefiles/100/ledgers \
+  -d 'user_id=123' \
+  -d 'created_by=123' \
+  -d 'ledger_type=expense/generic' \
+  -d 'description=Lunch with Bob' \
+  -d 'date=2015-10-04 12:30:00' \
+  -d 'amount=40.00'
+```
+
+Stability: `Production`
+
+Adds an entry to the ledger.
+
+The entry should have one of the following:
+
+* an `amount`
+* a number of `hours` and an `hourly_rate`
+* or a `unit_cost` and `item_qty`
+
+The amount will be calculated accordingly.
+
+The bill-to contact will be set to the casefile's bill-to contact by default.
+
+### Request
+
+`POST /v1/casefiles/:id/ledgers`
+
+### Parameters
+
+Name                     | Type    | Description
+-------------------------|---------|-------------------
+`created_by`             | integer | The user who is attached to the ledger.
+`ledger_type`            | string  | A string representation of one of the supported ledger types.
+`description`            | string  | A description of the item.
+`date`                   | date    | The date of the item.
+`account`                | string  | The string representation of the account.
+`hours`                  | float   | The number of hours associated with the entry.
+`hourly_rate`            | float   | The hourly rate to compute the total of the entry.
+`amount`                 | float   | The total amount of the item.
+`unit_cost`              | float   | The amount of one unit associated with the entry.
+`item_qty`               | integer | The quantity of items associate with the entry.
+`task_code`              | string  | The task code
+`activity_code`          | string  | The activity code
+`expense_code`           | string  | The expense code
+`alternate_billing_code` | string  | The alternate billing code
+`minimum_time_increment` | integer | Billing increment in minutes. Either 6 (tenths) or 15 (quarters).
+
+### Supported Ledger Types
+
+The following ledger types are supported:
+
+* `expense/generic`
+* `invoice/billable-time`
+
+### Supported Accounts
+
+The following account slugs are supported:
+
+* `operating/general`
+* `client/general`
+
 # Documents
 
 ## Adding a document
