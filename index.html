@@ -425,6 +425,141 @@ curl -H <span class="s1">'Authorization: Bearer 06d83c40-c22f-482c-ae30-31d10fd8
 <li><code class="prettyprint">text/plain</code></li>
 </ul>
 
+<h2 id="adding-a-ledger-item">Adding a ledger item</h2>
+<pre class="highlight shell"><code>curl -H <span class="s1">'Authorization: Bearer 06d83c40-c22f-482c-ae30-31d10fd8e9e6'</span> <span class="se">\</span>
+  https://api.meruscase.com/v1/casefiles/100/ledgers <span class="se">\</span>
+  -d <span class="s1">'user_id=123'</span> <span class="se">\</span>
+  -d <span class="s1">'created_by=123'</span> <span class="se">\</span>
+  -d <span class="s1">'ledger_type=expense/generic'</span> <span class="se">\</span>
+  -d <span class="s1">'description=Lunch with Bob'</span> <span class="se">\</span>
+  -d <span class="s1">'date=2015-10-04 12:30:00'</span> <span class="se">\</span>
+  -d <span class="s1">'amount=40.00'</span>
+</code></pre>
+
+<p>Stability: <code class="prettyprint">Production</code></p>
+
+<p>Adds an entry to the ledger.</p>
+
+<p>The entry should have one of the following:</p>
+
+<ul>
+<li>an <code class="prettyprint">amount</code></li>
+<li>a number of <code class="prettyprint">hours</code> and an <code class="prettyprint">hourly_rate</code></li>
+<li>or a <code class="prettyprint">unit_cost</code> and <code class="prettyprint">item_qty</code></li>
+</ul>
+
+<p>The amount will be calculated accordingly.</p>
+
+<p>The bill-to contact will be set to the casefile&rsquo;s bill-to contact by default.</p>
+
+<h3 id="request">Request</h3>
+
+<p><code class="prettyprint">POST /v1/casefiles/:id/ledgers</code></p>
+
+<h3 id="parameters">Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code class="prettyprint">created_by</code></td>
+<td>integer</td>
+<td>The user who is attached to the ledger.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">ledger_type</code></td>
+<td>string</td>
+<td>A string representation of one of the supported ledger types.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">description</code></td>
+<td>string</td>
+<td>A description of the item.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">date</code></td>
+<td>date</td>
+<td>The date of the item.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">account</code></td>
+<td>string</td>
+<td>The string representation of the account.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">hours</code></td>
+<td>float</td>
+<td>The number of hours associated with the entry.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">hourly_rate</code></td>
+<td>float</td>
+<td>The hourly rate to compute the total of the entry.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">amount</code></td>
+<td>float</td>
+<td>The total amount of the item.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">unit_cost</code></td>
+<td>float</td>
+<td>The amount of one unit associated with the entry.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">item_qty</code></td>
+<td>integer</td>
+<td>The quantity of items associate with the entry.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">task_code</code></td>
+<td>string</td>
+<td>The task code</td>
+</tr>
+<tr>
+<td><code class="prettyprint">activity_code</code></td>
+<td>string</td>
+<td>The activity code</td>
+</tr>
+<tr>
+<td><code class="prettyprint">expense_code</code></td>
+<td>string</td>
+<td>The expense code</td>
+</tr>
+<tr>
+<td><code class="prettyprint">alternate_billing_code</code></td>
+<td>string</td>
+<td>The alternate billing code</td>
+</tr>
+<tr>
+<td><code class="prettyprint">minimum_time_increment</code></td>
+<td>integer</td>
+<td>Billing increment in minutes. Either 6 (tenths) or 15 (quarters).</td>
+</tr>
+</tbody></table>
+
+<h3 id="supported-ledger-types">Supported Ledger Types</h3>
+
+<p>The following ledger types are supported:</p>
+
+<ul>
+<li><code class="prettyprint">expense/generic</code></li>
+<li><code class="prettyprint">invoice/billable-time</code></li>
+</ul>
+
+<h3 id="supported-accounts">Supported Accounts</h3>
+
+<p>The following account slugs are supported:</p>
+
+<ul>
+<li><code class="prettyprint">operating/general</code></li>
+<li><code class="prettyprint">client/general</code></li>
+</ul>
+
 <h1 id="documents">Documents</h1>
 
 <h2 id="adding-a-document">Adding a document</h2>
